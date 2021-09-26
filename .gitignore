@@ -1,0 +1,5 @@
+.tabnine.model
+/venv
+/myproject/my_eco/__pycache__
+/myproject/my_eco/migrations
+/myproject/myproject/__pycache__
