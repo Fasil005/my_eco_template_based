@@ -16,7 +16,7 @@
             <a class="nav-item nav-link" href="#">Income</a>
             <a class="nav-item nav-link" href="#">Loan</a>
           </div>
-          <input type="text" class="form-control" style="width:300px; margin-left: 55%" value="Balence: 500" disabled/>
+          <input type="text" class="form-control" style="width:300px; margin-left: 55%" value={{main_balance}} disabled/>
         </div>
     </nav>
     <div id="content">
@@ -24,7 +24,6 @@
         <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">Date</th>
                 <th scope="col">Amount</th>
                 <th scope="col">Type</th>
@@ -35,8 +34,7 @@
             <tbody>
               <tr>
                 {% for item in statements%}
-                <th scope="row">{{item.id}}</th>
-                <td>{{item.date}}</td>
+                <td scope="row">{{item.date}}</td>
                 <td>{{item.amount}}</td>
                 <td>{{item.type}}</td>
                 <td>{{item.purpose}}</td>

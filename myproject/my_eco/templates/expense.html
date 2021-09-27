@@ -2,6 +2,11 @@
 {% block title %}Expenses{% endblock %}
 {% block content %}
 <div class="container px-5">
+  {% if msg %}
+  <div class="alert alert-danger" role="alert">
+    {{msg}}
+  </div>
+  {% endif %}
   <form class="form" method="post" action="add_expanse/" >
       <div class="form-group">
         <label for="exampleFormControlInput1">Amount</label>
