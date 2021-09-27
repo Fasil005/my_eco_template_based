@@ -4,6 +4,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('staements', views.Statements),
-    
+    path('add_expense', views.ADDExpense.as_view()),
 ]

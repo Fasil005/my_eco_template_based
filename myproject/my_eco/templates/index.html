@@ -1,30 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- {% load bootstrap3 %}
-    {% bootstrap_css %}
-    {% bootstrap_javascript %} -->
-    <!-- {% block title %}Index{% endblock %} -->
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-
+    <title>{% block title %}Statements{% endblock %}</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/">Home</a>
-            <a class="nav-item nav-link" href="#">Expenses</a>
+            <a class="nav-item nav-link" href="/expense">Expenses</a>
             <a class="nav-item nav-link" href="#">Income</a>
             <a class="nav-item nav-link" href="#">Loan</a>
           </div>
-          <input type="text" class="form-control" style="width:300px; margin-left: 55%" value="500" disabled/>
+          <input type="text" class="form-control" style="width:300px; margin-left: 55%" value="Balence: 500" disabled/>
         </div>
     </nav>
-    <div class="content">
-        <p>HI LIYAAAA</p>
+    <div id="content">
+        {% block content %} 
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Type</th>
+                <th scope="col">Purpose</th>
+                <th scope="col">Balence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {% for item in statements%}
+                <th scope="row">{{item.id}}</th>
+                <td>{{item.date}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.purpose}}</td>
+                <td>{{item.balance}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endblock %}
     </div>
 </body>
 </html>

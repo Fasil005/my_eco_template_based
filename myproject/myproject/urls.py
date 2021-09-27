@@ -16,24 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls import url
-from my_eco.views import StatementsViewSet,index
+from my_eco.views import index,expense,ADDExpense
 
 urlpatterns = [
-    path('my_eco/', include('my_eco.urls')),
+    path('/my_eco/', include('my_eco.urls')),
     # path('', admin.site.urls),
-    url(r'^statements$', StatementsViewSet.as_view(
-        {
-            'get': 'retrieve',
-            'post': 'create',
-            'put': 'update',
-            'patch': 'partial_update',
-            'delete': 'destroy'
-        }
-    )),
-    url(r'^statements/all$', StatementsViewSet.as_view(
-        {
-            'get': 'list',
-        }
-    )),
-    url(r'^$', index)
+    url(r'^$', index),
+    url(r'^expense$', expense),
+    url(r'^add_expanse', ADDExpense.as_view())
 ]
