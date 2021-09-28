@@ -11,12 +11,12 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link" href="/">Home</a>
-            <a class="nav-item nav-link" href="/expense">Expenses</a>
-            <a class="nav-item nav-link" href="#">Income</a>
-            <a class="nav-item nav-link" href="#">Loan</a>
+            <a class="nav-item nav-link" href="">Home</a>
+            <a class="nav-item nav-link" href="expense">Expenses</a>
+            <a class="nav-item nav-link" href="income">Income</a>
+            <a class="nav-item nav-link" href="loan">Loan</a>
           </div>
-          <input type="text" class="form-control" style="width:300px; margin-left: 55%" value={{main_balance}} disabled/>
+          <input type="text" class="form-control" style="width:300px; margin-left: 55%" id="balance" value="{{ main_balance }}" disabled >
         </div>
     </nav>
     <div id="content">
@@ -45,5 +45,12 @@
           </table>
         {% endblock %}
     </div>
+    <script>
+      console.log(sessionStorage.getItem("id"));
+      if(document.getElementById('balance').value.length > 0) {
+        localStorage.setItem("balance",document.getElementById('balance').value)
+      }
+      document.getElementById('balance').value=localStorage.getItem('balance')
+    </script>
 </body>
 </html>
