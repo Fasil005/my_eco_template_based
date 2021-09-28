@@ -7,9 +7,10 @@ from .serializers import StatementsSerializer
 
 
 def index(request):
-    statements = Statements.objects.order_by('-id').all()
-    main_balance = list(statements)[0].balance
-    return render(request, 'index.html', {'statements': statements,'main_balance':main_balance})
+    userID = request.session['id']
+    statements = Statements.objects.filter(u_id=userID).order_by('-id').all()
+    main_balance = list(statements)[0].balance if statements else 0
+    return render(request, 'index.html', {'statements': statements,'main_balance':main_balance, 'userID': userID})
 
 def expense(request):
     return render(request, 'expense.html', {})
@@ -35,7 +36,7 @@ class ADDExpense(APIView):
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
-            return redirect('/')
+            return redirect('/my_eco/')
         error=""
         for i in serializer.errors:
             error = serializer.errors.get(i)[0].replace('This',i)
@@ -52,11 +53,12 @@ class ADDIncome(APIView):
         data = request.data.copy()
         data['balance'] = float(balance) + float(data['amount'])
         data['type'] = 'INCOME'
+        print(data)
         serializer = StatementsSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
-            return redirect('/')
+            return redirect('/my_eco/')
         error=""
         for i in serializer.errors:
             error = serializer.errors.get(i)[0].replace('This',i)
@@ -81,7 +83,7 @@ class ADDLoan(APIView):
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
-            return redirect('/')
+            return redirect('/my_eco/')
         error=""
         for i in serializer.errors:
             error = serializer.errors.get(i)[0].replace('This',i)

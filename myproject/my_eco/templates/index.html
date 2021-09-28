@@ -11,7 +11,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link" href="">Home</a>
+            <a class="nav-item nav-link" href="/my_eco/">Home</a>
             <a class="nav-item nav-link" href="expense">Expenses</a>
             <a class="nav-item nav-link" href="income">Income</a>
             <a class="nav-item nav-link" href="loan">Loan</a>
@@ -33,20 +33,29 @@
             </thead>
             <tbody>
               <tr>
-                {% for item in statements%}
-                <td scope="row">{{item.date}}</td>
-                <td>{{item.amount}}</td>
-                <td>{{item.type}}</td>
-                <td>{{item.purpose}}</td>
-                <td>{{item.balance}}</td>
+                {% if statements %}
+                  {% for item in statements %}
+                  <td scope="row">{{item.date}}</td>
+                  <td>{{item.amount}}</td>
+                  <td>{{item.type}}</td>
+                  <td>{{item.purpose}}</td>
+                  <td>{{item.balance}}</td>
+                  {% endfor %}
+                {% else %}
+                  <td scope="row"> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                {% endif %}
               </tr>
-              {% endfor %}
             </tbody>
           </table>
         {% endblock %}
     </div>
+    <input type="hidden" id="userID" value="{{ userID }}">
     <script>
-      console.log(sessionStorage.getItem("id"));
+      localStorage.setItem("userID",document.getElementById('userID').value)
       if(document.getElementById('balance').value.length > 0) {
         localStorage.setItem("balance",document.getElementById('balance').value)
       }

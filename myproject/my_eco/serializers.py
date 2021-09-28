@@ -6,4 +6,4 @@ class StatementsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Statements
-        fields = ('id', 'date', 'amount', 'type', 'purpose', 'balance')
+        fields = ('id', 'date', 'amount', 'type', 'purpose', 'balance','u_id')
