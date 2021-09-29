@@ -32,23 +32,15 @@
               </tr>
             </thead>
             <tbody>
+              {% for item in statements %}
               <tr>
-                {% if statements %}
-                  {% for item in statements %}
-                  <td scope="row">{{item.date}}</td>
-                  <td>{{item.amount}}</td>
-                  <td>{{item.type}}</td>
-                  <td>{{item.purpose}}</td>
-                  <td>{{item.balance}}</td>
-                  {% endfor %}
-                {% else %}
-                  <td scope="row"> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                {% endif %}
+                <td scope="row">{{item.date}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.purpose}}</td>
+                <td>{{item.balance}}</td>
               </tr>
+              {% endfor %}
             </tbody>
           </table>
         {% endblock %}
