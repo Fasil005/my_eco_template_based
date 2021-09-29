@@ -1,1 +1,1 @@
-# my_eco
+Django Project
