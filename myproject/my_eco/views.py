@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from accounts.models import User
 
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
@@ -9,22 +10,37 @@ global first_data
 first_data = [{'date':0,'amount': 0, 'type' : 0, 'purpose' : 0, 'balance' : 0}]
 
 def index(request):
-    userID = request.session['id']
-    statements = Statements.objects.filter(u_id=userID).order_by('-id').all()
-    main_balance = list(statements)[0].balance if list(statements) != [] else 0
-    statements = first_data if list(statements) == [] else statements
-    
-    return render(request, 'index.html', {'statements': statements,'main_balance':main_balance, 'userID': userID})
+    if 'id' in request.session.keys():
+        userID = request.session['id']
+        user = User.objects.filter(id=userID).values('fullname')
+        statements = Statements.objects.filter(u_id=userID).order_by('-id').all()
+        main_balance = list(statements)[0].balance if list(statements) != [] else 0
+        statements = first_data if list(statements) == [] else statements
+        
+        return render(request, 'index.html', {'statements': statements,'main_balance':main_balance, 'user': user[0]['fullname']})
+    else:
+        return redirect('/')
 
 def expense(request):
-    return render(request, 'expense.html', {})
 
+    if 'id' in request.session.keys():
+        return render(request, 'expense.html', {})
+    else:
+        return redirect('/')
 
 def income(request):
-    return render(request, 'income.html', {})
+    
+    if 'id' in request.session.keys():
+        return render(request, 'income.html', {})
+    else:
+        return redirect('/')
 
 def loan(request):
-    return render(request, 'loan.html', {})
+   
+    if 'id' in request.session.keys():
+        return render(request, 'loan.html', {})
+    else:
+        return redirect('/')
 
 
 class ADDExpense(APIView):

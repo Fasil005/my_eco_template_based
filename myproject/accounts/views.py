@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 
 from .models import User
 from .serializers import UserSerializer
+from django.views.decorators.cache import cache_control
 
 # Create your views here.
 def login(request):
@@ -13,6 +14,7 @@ def register(request):
 
 class Register(APIView):
     def post(self, request):
+        
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -28,6 +30,7 @@ class Register(APIView):
 
 
 class Login(APIView):
+    @cache_control(no_cache=True, must_revalidate=True, no_store=True)
     def post(self, request):
         
         user = User.objects.filter(username = request.data['username']).first()
@@ -42,3 +45,9 @@ class Login(APIView):
                 return render(request, 'login.html', {'msg': 'Wrong Password'})
         else:
             return render(request, 'login.html', {'msg': 'Wrong Username'})
+
+class Logout(APIView):
+    def get(self, request):
+
+        del request.session['id']
+        return redirect('/')

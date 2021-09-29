@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^$', views.login),
     url(r'^register$', views.register),
     path('registering',views.Register.as_view(),name='registering'),
-    path('logingin',views.Login.as_view(),name='logingin')
+    path('logingin',views.Login.as_view(),name='logingin'),
+    path('logout',views.Logout.as_view(),name='logout')
 ]

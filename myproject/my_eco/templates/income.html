@@ -11,7 +11,7 @@
     {% csrf_token %}
       <div class="form-group">
         <label for="exampleFormControlInput1">Amount</label>
-        <input type="number" class="form-control" name="amount" placeholder="Amount">
+        <input type="number" class="form-control" name="amount" min="0" placeholder="Amount">
       </div>
       <div class="form-group">
         <label for="exampleFormControlInput1">Purpose</label>
