@@ -1,5 +1,6 @@
 .tabnine.model
 /venv
-*/__pycache__
-*/migrations
+myproject/*/__pycache__
+myproject/*/migrations
 *.pyc
+myproject/db.sqlite3
