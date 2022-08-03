@@ -1,6 +1,6 @@
 asgiref==3.4.1
 backports.zoneinfo==0.2.1
-Django==3.2.7
+Django==3.2.12
 django-bootstrap3==15.0.0
 djangorestframework==3.12.4
 pyjsparser==2.7.1
