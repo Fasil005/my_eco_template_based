@@ -4,3 +4,4 @@ myproject/*/__pycache__
 myproject/*/migrations
 *.pyc
 myproject/db.sqlite3
+myproject/db
