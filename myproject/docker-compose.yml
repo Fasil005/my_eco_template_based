@@ -1,0 +1,26 @@
+version: "3.9"
+   
+services:
+  db:
+    image: mysql:8
+    ports:
+      - "3308:3308"
+    environment:
+      - MYSQL_DATABASE='my_eco'
+      - MYSQL_USER='root'
+      - MYSQL_PASSWORD='myeco'
+      - MYSQL_ROOT_PASSWORD='myeco'
+      - MYSQL_HOST='localhost'
+    volumes:
+      - /tmp/app/mysqld:/var/run/mysqld
+      - ./db:/var/lib/mysql
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8005
+    ports:
+      - "8005:8005"
+    volumes:
+      - .:/app
+      - /tmp/app/mysqld:/run/mysqld
+    depends_on:
+      - db
