@@ -77,7 +77,6 @@ class ADDIncome(APIView):
         data['u_id'] = userID
         data['balance'] = float(balance) + float(data['amount'])
         data['type'] = 'INCOME'
-        print(data)
         serializer = StatementsSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
