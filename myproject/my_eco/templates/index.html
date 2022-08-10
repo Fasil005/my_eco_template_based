@@ -35,7 +35,10 @@
             <a class="nav-item nav-link" href="loan">Loan</a>
           </div>
           {% if main_balance == 0 %}
-            <input type="number" class="form-control" style="width:200px; margin-left: 47%; text-decoration: none;" id="balance" title="Enter to update balance">
+            <div class="alert alert-danger float-right" role="alert" style="height: 85px;white-space: nowrap ;margin-left: 47%;">
+              <input type="number" class="form-control" style="width:200px;" id="balance" title="Enter to update balance">
+              <p style="text-align: center;">Update your balance</p>
+            </div>
           {% else %}
             <input type="number" class="form-control" style="width:200px; margin-left: 47%; text-decoration: none;"  value="{{main_balance}}" disabled>
           {% endif %}
