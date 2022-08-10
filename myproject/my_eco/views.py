@@ -35,7 +35,11 @@ def expense(request):
 def income(request):
     
     if 'id' in request.session.keys():
-        return render(request, 'income.html', {})
+        userID = request.session.get('id')
+        user = User.objects.get(id=userID)
+        statements = Statements.objects.filter(u_id=userID).order_by('-id').all()
+        main_balance = list(statements)[0].balance if list(statements) != [] else 0
+        return render(request, 'income.html', {'user': user.fullname, 'main_balance':main_balance,})
     else:
         return redirect('/')
 
