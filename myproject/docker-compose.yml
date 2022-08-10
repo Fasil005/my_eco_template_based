@@ -19,17 +19,6 @@ services:
       timeout: 5s
       retries: 60
 
-
-  web:
-    build: .
-    container_name: my_eco_web
-    command: python manage.py runserver 0.0.0.0:8005
-    ports:
-      - "8005:8005"
-    depends_on:
-      - db
-
-
   migrate:
     build: .
     command: python manage.py migrate
@@ -38,3 +27,16 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
+  web:
+    build: .
+    container_name: my_eco_web
+    command: python manage.py runserver 0.0.0.0:8005
+    ports:
+      - "8005:8005"
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+
+
