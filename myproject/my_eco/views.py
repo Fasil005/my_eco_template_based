@@ -9,15 +9,19 @@ from .serializers import StatementsSerializer
 global first_data 
 first_data = [{'date':0,'amount': 0, 'type' : 0, 'purpose' : 0, 'balance' : 0}]
 
+def find_details(userID, is_statements=False):
+    user = User.objects.get(id=userID)
+    statements = Statements.objects.filter(u_id=userID).order_by('-id').all()
+    main_balance = list(statements)[0].balance if list(statements) != [] else 0
+    if is_statements:
+        return (user.fullname, main_balance, statements)
+    return (user.fullname, main_balance,)
+
 def index(request):
     if 'id' in request.session.keys():
         userID = request.session['id']
-        user = User.objects.filter(id=userID).values('fullname')
-        statements = Statements.objects.filter(u_id=userID).order_by('-id').all()
-        main_balance = list(statements)[0].balance if list(statements) != [] else 0
-        statements = first_data if list(statements) == [] else statements
-        
-        return render(request, 'index.html', {'statements': statements,'main_balance':main_balance, 'user': user[0]['fullname']})
+        fullname, main_balance, statements = find_details(userID=userID, is_statements=True)
+        return render(request, 'index.html', {'statements': statements,'main_balance':main_balance, 'user': fullname})
     else:
         return redirect('/')
 
@@ -25,10 +29,8 @@ def expense(request):
 
     if 'id' in request.session.keys():
         userID = request.session.get('id')
-        user = User.objects.get(id=userID)
-        statements = Statements.objects.filter(u_id=userID).order_by('-id').all()
-        main_balance = list(statements)[0].balance if list(statements) != [] else 0
-        return render(request, 'expense.html', {'user': user.fullname, 'main_balance':main_balance,})
+        fullname, main_balance = find_details(userID=userID)
+        return render(request, 'expense.html', {'user': fullname, 'main_balance':main_balance,})
     else:
         return redirect('/')
 
@@ -36,10 +38,8 @@ def income(request):
     
     if 'id' in request.session.keys():
         userID = request.session.get('id')
-        user = User.objects.get(id=userID)
-        statements = Statements.objects.filter(u_id=userID).order_by('-id').all()
-        main_balance = list(statements)[0].balance if list(statements) != [] else 0
-        return render(request, 'income.html', {'user': user.fullname, 'main_balance':main_balance,})
+        fullname, main_balance = find_details(userID=userID)
+        return render(request, 'income.html', {'user': fullname, 'main_balance':main_balance,})
     else:
         return redirect('/')
 
@@ -47,10 +47,8 @@ def loan(request):
    
     if 'id' in request.session.keys():
         userID = request.session.get('id')
-        user = User.objects.get(id=userID)
-        statements = Statements.objects.filter(u_id=userID).order_by('-id').all()
-        main_balance = list(statements)[0].balance if list(statements) != [] else 0
-        return render(request, 'loan.html', {'user': user.fullname, 'main_balance':main_balance,})
+        fullname, main_balance = find_details(userID=userID)
+        return render(request, 'loan.html', {'user': fullname, 'main_balance':main_balance,})
     else:
         return redirect('/')
 
