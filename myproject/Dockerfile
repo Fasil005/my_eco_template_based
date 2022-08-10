@@ -6,3 +6,8 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/
+
+# RUN chown mysql:8 /var/run/mysqld
+
+# RUN mkdir -p /Users/me/docker/mysql/data
+# RUN chmod -R 777 /Users/me/docker/mysql/data
