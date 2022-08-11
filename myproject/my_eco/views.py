@@ -53,6 +53,23 @@ def loan(request):
         return redirect('/')
 
 
+class ADDBalance(APIView):
+    
+    def post(self, request, *args, **kwargs):
+        
+        data = request.data.copy()
+        data['u_id'] = request.session['id']
+        data['amount'] = 0
+        data['type'] = 'BASE_BALANCE'
+        data['purpose'] = 'BASE_BALANCE'
+        serializer = StatementsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            data = serializer.data
+        return redirect('/my_eco/')
+        
+
+
 class ADDExpense(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
